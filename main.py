@@ -1,7 +1,7 @@
 # main.py
 
 import os
-from utils import preprocessing, ner, keyword_extraction, semantic_similarity, text_summarization
+from utils import preprocessing, ner, keyword_extraction, semantic_similarity, text_summarization, ip_identification
 
 # Set the directory containing research papers
 papers_directory = 'data/papers/'
@@ -64,3 +64,21 @@ for i, summary in enumerate(summaries):
     print()
 
 print("Text Summarization completed.")
+
+# Perform IP Identification
+ip_keywords = ["patent", "invention", "intellectual property", "trade secret"]
+potential_ip_documents = []
+
+for i, text in enumerate(preprocessed_text):
+    if ip_identification.identify_potential_ip(text, ip_keywords):
+        potential_ip_documents.append(i+1)
+
+# Print the potential IP documents
+if potential_ip_documents:
+    print("Potential IP found in the following documents:")
+    for doc_id in potential_ip_documents:
+        print(f"- Document {doc_id}")
+else:
+    print("No potential IP identified in the documents.")
+
+print("IP Identification completed.")
