@@ -1,7 +1,7 @@
 # main.py
 
 import os
-from utils import preprocessing, ner, keyword_extraction, semantic_similarity
+from utils import preprocessing, ner, keyword_extraction, semantic_similarity, text_summarization
 
 # Set the directory containing research papers
 papers_directory = 'data/papers/'
@@ -50,3 +50,17 @@ similarity_matrix = semantic_similarity.calculate_similarity(preprocessed_text)
 print("Semantic Similarity calculation completed.")
 print("Similarity Matrix:")
 print(similarity_matrix)
+
+# Perform Text Summarization
+summaries = []
+for text in preprocessed_text:
+    summary = text_summarization.summarize_text(text, num_sentences=3)
+    summaries.append(summary)
+
+# Print the summaries for each document
+for i, summary in enumerate(summaries):
+    print(f"Document {i+1} summary:")
+    print(summary)
+    print()
+
+print("Text Summarization completed.")
