@@ -1,7 +1,8 @@
 # main.py
 
 import os
-from utils import preprocessing, ner, keyword_extraction, semantic_similarity, text_summarization, ip_identification
+import time
+from utils import preprocessing, ner, keyword_extraction, semantic_similarity, text_summarization, ip_identification, visualization
 
 # Set the directory containing research papers
 papers_directory = 'data/papers/'
@@ -82,3 +83,63 @@ else:
     print("No potential IP identified in the documents.")
 
 print("IP Identification completed.")
+
+# Perform Visualization
+print("Generating keyword graph...")
+visualization.create_keyword_graph(top_keywords)
+print("Keyword graph saved to outputs/keyword_graph.png")
+
+# Export outputs to files
+print("Exporting outputs to files...")
+
+with open("outputs/named_entities.txt", "w") as f:
+    for i, entities in enumerate(entities_list):
+        f.write(f"Document {i+1} entities:\n")
+        for entity in entities:
+            f.write(f"- {entity[0]} ({entity[1]})\n")
+        f.write("\n")
+
+with open("outputs/top_keywords.txt", "w") as f:
+    for i, keywords in enumerate(top_keywords):
+        f.write(f"Document {i+1} top keywords:\n")
+        for keyword in keywords:
+            f.write(f"- {keyword}\n")
+        f.write("\n")
+
+with open("outputs/summaries.txt", "w") as f:
+    for i, summary in enumerate(summaries):
+        f.write(f"Document {i+1} summary:\n")
+        f.write(summary)
+        f.write("\n\n")
+
+with open("outputs/potential_ip.txt", "w") as f:
+    if potential_ip_documents:
+        f.write("Potential IP found in the following documents:\n")
+        for doc_id in potential_ip_documents:
+            f.write(f"- Document {doc_id}\n")
+    else:
+        f.write("No potential IP identified in the documents.\n")
+
+print("Output files saved to the outputs folder.")
+
+# Enhanced terminal reporting
+print("\nIPMiner - Identifying Potential IP from Research Papers")
+print("=" * 50)
+
+steps = [
+    "Data Preprocessing",
+    "Named Entity Recognition",
+    "Keyword Extraction",
+    "Semantic Similarity Calculation",
+    "Text Summarization",
+    "IP Identification",
+    "Visualization"
+]
+
+for step in steps:
+    print(f"\nPerforming {step}...")
+    time.sleep(1)
+    print("[" + "=" * 20 + ">]")
+    print(f"{step} completed.")
+
+print("\nIPMiner process completed successfully!")
