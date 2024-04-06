@@ -2,6 +2,9 @@
 
 IPMiner is a Python-based project that identifies potential intellectual property (IP) from a large corpus of research papers. It performs various natural language processing tasks such as data preprocessing, named entity recognition, keyword extraction, semantic similarity calculation, text summarization, and IP identification.
 
+## Project Status: Version 1.0 - In Development
+IPMiner is currently in version 1.0 and under active development. As such, it is subject to significant changes and improvements. The current release is intended for early testing, feedback, and contributions from the community.
+
 ## Features
 
 - Data preprocessing: Converts PDF files to plain text and performs text cleaning and tokenization.
